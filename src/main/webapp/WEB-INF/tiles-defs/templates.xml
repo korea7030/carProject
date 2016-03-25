@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>   
+<!DOCTYPE tiles-definitions PUBLIC      
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"    
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">  
+ 
+<tiles-definitions>    
+<!-- 기초가 될 template 선택 후 header 와 footer 추가 -->
+	<definition name="base" template="/WEB-INF/views/layout/template.jsp">
+        <put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+<!--         <put-attribute name="footer" value="/WEB-INF/views/layout/footer.jsp"/> -->
+    </definition>
+<!-- definition에서 servlet 경로(name)와 매칭시킬 view 정함. extends를 사용하여 상속 받으면 정의된 view의 사용이 가능 -->
+<!-- 정적 mapping 으로 /(ROOT)일 경우 /WEB-INF/views/index.jsp 를 view로 가져옴. -->
+    <definition name="home.do" extends="base">
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp"/>
+    </definition>
+    
+     <definition name="carhistbody" template = "/WEB-INF/views/layout/searchCarTemp.jsp">
+     	<put-attribute name="header" value="/WEB-INF/views/layout/header.jsp"/>
+     	<put-attribute name="one" value = "/WEB-INF/views/searchCar.jsp"></put-attribute>
+     	<put-attribute name="two" value = "/WEB-INF/views/HistList.jsp"></put-attribute>
+     </definition>
+    
+    <definition name="second" extends="carhistbody">
+     	<put-attribute name="two" value = "/WEB-INF/views/HistList.jsp"></put-attribute>
+    </definition>
+     
+    <definition name="*" extends="base">
+        <put-attribute name="body" value="/WEB-INF/views/{1}.jsp"/>
+    </definition>
+    
+    
+<!-- 동적 mapping 으로 * 하나에 와일드카드 ({1}, {2}, {3}) 이 mapping 된다.
+ /admin/info/update의 경로라면 /WEB-INF/views/admin/info/update.jsp view를 가져옴 -->
+<!--     <definition name="*/*" extends="base"> -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp"/> -->
+<!--     </definition> -->
+     
+<!--     <definition name="*/*/*" extends="base"> -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/{1}/{2}/{3}.jsp"/> -->
+<!--     </definition> -->
+
+</tiles-definitions>   

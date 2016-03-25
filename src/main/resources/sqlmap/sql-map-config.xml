@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN" "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	 <settings 
+		  enhancementEnabled="true"  
+		  useStatementNamespaces="true" />
+		  
+		  <!--쿼리xml 파일 추가될때마다 하단 태그 추가 -->
+		  <sqlMap resource="sql/sql.xml" />
+</sqlMapConfig>

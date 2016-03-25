@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="sql">
+	<typeAlias alias="car" type="com.ywcar.vo.CarVo"></typeAlias>
+	
+	<resultMap id  = "modelList" class="car">
+		<result property="VHICHL_CMP_DT" column="VHICHL_CMP_DT" />
+	</resultMap>
+	
+	<!--db접속 테스트 -->
+	<select id="SelectBox" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select VHICHL_CMP_DT, count(VHICHL_CMP_DT) AS COUNT from MAINTENENCE_HIST_TB
+		where
+		VHICHL_REG_DT = #year# and VHICHL_NM = #brand#
+		group by VHICHL_CMP_DT
+	</select>
+
+	<select id="SelectBrand" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select VHICHL_NM, count(VHICHL_NM) AS COUNT from MAINTENENCE_HIST_TB
+		where
+		VHICHL_REG_DT = #year# 
+		group by VHICHL_NM
+	</select>
+	
+	<select id="SelectProb" parameterClass="java.util.HashMap" resultClass="java.util.HashMap">
+		select VHICHL_CMPNT_CD, count(VHICHL_CMPNT_CD) AS COUNT from MAINTENENCE_HIST_TB
+		where
+		VHICHL_REG_DT = #year# and VHICHL_NM = #brand# and VHICHL_CMP_DT = #model#
+		group by VHICHL_CMPNT_CD
+	</select>
+	
+	<select id="getCarInfo" parameterClass="java.util.HashMap"
+		resultClass="java.util.HashMap">
+		select VHICHL_CMPNT_CD , count(*) AS COUNT from
+		MAINTENENCE_HIST_TB
+		where VHICHL_NM = #VHICHL_NM# and VHICHL_REG_DT = #VHICHL_REG_DT# and
+		VHICHL_CMP_DT = #VHICHL_CMP_DT#
+		group by VHICHL_CMPNT_CD
+	</select>
+
+	<select id="getHist" parameterClass="java.util.HashMap"
+		resultClass="com.ywcar.vo.CarVo">
+		select * from
+		MAINTENENCE_HIST_TB
+		where VHICHL_NM= #VHICHL_NM# and VHICHL_REG_DT = #VHICHL_REG_DT# and
+		VHICHL_CMP_DT = #VHICHL_CMP_DT#
+		and VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="getTotCount" parameterClass="java.util.HashMap"
+		resultClass="Integer">
+		select count(*) from
+		MAINTENENCE_HIST_TB
+		where VHICHL_NM= #VHICHL_NM# and VHICHL_REG_DT = #VHICHL_REG_DT# and
+		VHICHL_CMP_DT = #VHICHL_CMP_DT#
+		and VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
+	</select>
+	<!-- SELECT ID FROM MEMBER WHERE ID=#value# -->
+</sqlMap>
