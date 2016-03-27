@@ -42,19 +42,41 @@
 		resultClass="com.ywcar.vo.CarVo">
 		select * from
 		MAINTENENCE_HIST_TB
-		where VHICHL_NM= #VHICHL_NM# and VHICHL_REG_DT = #VHICHL_REG_DT# and
-		VHICHL_CMP_DT = #VHICHL_CMP_DT#
-		and VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
-		LIMIT #start#, #end#
+		<dynamic prepend = "WHERE">
+			<isNotEmpty prepend="AND" property = "VHICHL_NM">
+				VHICHL_NM= #VHICHL_NM#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_NM">
+				VHICHL_REG_DT = #VHICHL_REG_DT#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_CMP_DT">
+				VHICHL_CMP_DT = #VHICHL_CMP_DT#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_CMPNT_CD">
+				VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
+			</isNotEmpty>
+		</dynamic>
+		LIMIT #start#, 5
 	</select>
 	
 	<select id="getTotCount" parameterClass="java.util.HashMap"
 		resultClass="Integer">
 		select count(*) from
 		MAINTENENCE_HIST_TB
-		where VHICHL_NM= #VHICHL_NM# and VHICHL_REG_DT = #VHICHL_REG_DT# and
-		VHICHL_CMP_DT = #VHICHL_CMP_DT#
-		and VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
+				<dynamic prepend = "WHERE">
+			<isNotEmpty prepend="AND" property = "VHICHL_NM">
+				VHICHL_NM= #VHICHL_NM#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_NM">
+				VHICHL_REG_DT = #VHICHL_REG_DT#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_CMP_DT">
+				VHICHL_CMP_DT = #VHICHL_CMP_DT#
+			</isNotEmpty>
+			<isNotEmpty prepend="AND" property = "VHICHL_CMPNT_CD">
+				VHICHL_CMPNT_CD = #VHICHL_CMPNT_CD#
+			</isNotEmpty>
+		</dynamic>
 	</select>
 	<!-- SELECT ID FROM MEMBER WHERE ID=#value# -->
 </sqlMap>

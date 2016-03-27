@@ -194,33 +194,8 @@ public class HomeController {
 		String car_model = carvo.getVHICHL_REQ_DT();
 		String prob_area = carvo.getVHICHL_WRK_ID();
 		
-		System.out.println(car_nm+":"+year+":"+car_model+":"+prob_area);
-		
-		//모델명 변경
-		//기존 truedelta의 모델 검색 시 url을 통해 가져오는데 그 url로 하려다가 크로스도메인 문제로 인해 
-		// 모델 중에 / 가 들어가 있는 문자는 이렇게 변환
-//		if (car_model.equals("A3") ) {
-//			car_model = "A3 / S3";
-//		}else if (car_model.equals("A4")) {
-//			car_model = "A4 / S4";
-//		}else if (car_model.equals("A6")) {
-//			car_model = "A6 / S6";
-//		}else if (car_model.equals("A8")) {
-//			car_model = "A8 / S8";
-//		}else if(car_model.equals("Tahoe")) {
-//			car_model = "Tahoe / Suburban";
-//		}else if(car_model.equals("Voyager / Grand Voyager")) {
-//			car_model = "A3 / S3";
-//		}else if(car_model.equals("Golf")) {
-//			car_model = "Golf / GTI";
-//		}
-		
-		System.out.println("모델 변경 후 : "+car_model);
-		
-//		System.out.println("prob data : "+prob_area);
 		if (prob_area.equals("Engine") ) {
 			mv.addObject("prob", "Engine");
-			System.out.println("!!!!!!");
 		}
 		else if (prob_area.equals("Transmission and Drivetrain")) {
 			mv.addObject("prob", "Transmission and Drivetrain");
@@ -257,7 +232,6 @@ public class HomeController {
 		
 		// 첫번째 검색은 무조건 1~5 페이지
 		paramMap.put("start", 0);
-		paramMap.put("end", 5);
 		
 		ArrayList<CarVo> carHist = (ArrayList<CarVo>)this.selectboxService.getHist(paramMap);
 		
@@ -267,7 +241,6 @@ public class HomeController {
 			mv.addObject("carHist", "N");
 		}
 		
-		System.out.println(carHist);
 		Paging paging = new Paging();
 		paging.setPageNo(1);				// 페이지번호
 		paging.setPageSize(5);				// 한 페이지 당 게시글 개수
@@ -307,10 +280,8 @@ public class HomeController {
 		
 		if (pageNo == 1) {
 			paramMap.put("start", 0);
-			paramMap.put("end", pageNo*5);
 		} else {
 			paramMap.put("start", (pageNo*5)-5);
-			paramMap.put("end", (pageNo*5));
 		}
 		paramMap.put("VHICHL_NM", brand);
 		paramMap.put("VHICHL_REG_DT", year);
